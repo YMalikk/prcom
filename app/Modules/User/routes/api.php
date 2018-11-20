@@ -12,8 +12,8 @@ Route::group(['prefix' => 'api/auth','module' => 'User', 'namespace' => 'App\Mod
 
 });
 
-Route::group(['prefix' => 'api','module' => 'User', 'namespace' => 'App\Modules\User\Controllers'], function() {
-    Route::post('getUserById', 'UserController@getUserById');
+Route::group(['prefix' => 'api', 'middleware' => 'auth:api','module' => 'User', 'namespace' => 'App\Modules\User\Controllers'], function() {
+    Route::get('user', 'UserController@user');
 });
 
 
