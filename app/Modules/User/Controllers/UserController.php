@@ -59,12 +59,16 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
+
         $user = $request->user();
+        $user->last_connected_time=Carbon::now();
+        $user->save();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
+
         return response()->json([
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -73,6 +77,8 @@ class UserController extends Controller
             )->toDateTimeString()
         ]);
     }
+
+
 
     /**
      * Logout user (Revoke the token)
@@ -92,6 +98,7 @@ class UserController extends Controller
      *
      * @return [json] user object
      */
+
     public function user(Request $request)
     {
         return response()->json($request->user());
