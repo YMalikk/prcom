@@ -25,6 +25,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth:api','admin'],'module' =
 
     Route::get('users', 'AdminController@getUsers');
     Route::get('user/{id}','AdminController@getUserById');
+    Route::post('user/add','AdminController@addUser');
     Route::post('user/edit/{id}','AdminController@editUser');
     Route::get('user/delete/{id}','AdminController@deleteUser');
     Route::get('user/restore/{id}','AdminController@restoreUser');

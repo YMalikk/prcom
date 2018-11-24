@@ -76,6 +76,33 @@ class AdminController extends Controller
 
     }
 
+    public function addUser(Request $request)
+    {
+        $request->validate([
+            'first_name'=>'required|string',
+            'last_name'=>'required|string',
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'tel'=>'required|string',
+            'address'=>'string',
+            'sex'=>'required|string',
+            'birth_date'=>'required|date|date_format:Y-m-d',
+            'hired_date'=>'date|date_format:Y-m-d',
+            'civil_situation'=>'string',
+            'cin'=>'required|string',
+            'passport'=>'required|string',
+            'banned_time'=>'string',
+            'nationality'=>'required|string',
+            'role_id'=>'required|integer|max:3|min:1'
+
+
+        ]);
+
+        $user=User::create($request->all());
+        return $user;
+
+    }
+
     public function editUser(Request $request,$id)
     {
         $user=User::find($id);
